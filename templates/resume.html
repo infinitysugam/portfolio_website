@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="resume-container">
+  <div class="resume-header">
+    <h2 class="section-title">Resume</h2>
+    <div class="resume-actions">
+      <a href="{% static 'pdf/Sugam_Mishra_Resume.pdf' %}" download class="btn-download">
+        <span class="icon">⬇</span> Download PDF
+      </a>
+      <a href="{% static 'pdf/Sugam_Mishra_Resume.pdf' %}" target="_blank" class="btn-view">
+        <span class="icon">👁</span> View Full Screen
+      </a>
+    </div>
+  </div>
+  
+  <div class="resume-viewer">
+    <iframe 
+      src="{% static 'pdf/Sugam_Mishra_Resume.pdf' %}" 
+      class="pdf-iframe"
+      title="Sugam Mishra Resume">
+    </iframe>
+  </div>
+  
+  <div class="resume-fallback">
+    <p>If the PDF doesn't display, you can:</p>
+    <ul>
+      <li><a href="{% static 'pdf/Sugam_Mishra_Resume.pdf' %}" download>Download the PDF</a></li>
+      <li><a href="{% static 'pdf/Sugam_Mishra_Resume.pdf' %}" target="_blank">Open in new tab</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

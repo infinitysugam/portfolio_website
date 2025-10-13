@@ -1,0 +1,307 @@
+/* Professional Theme - Default */
+body[data-theme="professional"] {
+  --primary-color: #2563eb;
+  --secondary-color: #1e40af;
+  --accent-color: #3b82f6;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --border-color: #e5e7eb;
+  
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  color: var(--text-primary);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* Remove futuristic effects */
+body[data-theme="professional"]::before {
+  background: none;
+}
+
+/* Container */
+body[data-theme="professional"] .container {
+  box-shadow: none;
+}
+
+/* Image Section */
+body[data-theme="professional"] .image-section {
+  border: none;
+  box-shadow: none;
+}
+
+body[data-theme="professional"] .image-section::before {
+  background: linear-gradient(45deg, rgba(37, 99, 235, 0.05) 0%, transparent 50%);
+}
+
+body[data-theme="professional"] .image-section::after {
+  background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.9) 50%, #ffffff 100%);
+}
+
+/* Content Section */
+body[data-theme="professional"] .content-section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-left: 1px solid var(--border-color);
+}
+
+body[data-theme="professional"] .content-section::before {
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    var(--primary-color) 20%, 
+    var(--secondary-color) 50%, 
+    var(--accent-color) 80%, 
+    transparent 100%);
+  opacity: 0.3;
+}
+
+/* Navigation */
+body[data-theme="professional"] .logo {
+  color: var(--primary-color);
+  text-shadow: none;
+  animation: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+
+body[data-theme="professional"] nav ul li a {
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  clip-path: none;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme="professional"] nav ul li a::before {
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+}
+
+body[data-theme="professional"] nav ul li a:hover,
+body[data-theme="professional"] nav ul li a.active {
+  color: #ffffff;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+/* Typography */
+body[data-theme="professional"] .greeting {
+  color: var(--primary-color);
+  font-family: 'Inter', sans-serif;
+}
+
+body[data-theme="professional"] .greeting::before {
+  background: linear-gradient(to right, var(--primary-color), transparent);
+  box-shadow: none;
+}
+
+body[data-theme="professional"] .title {
+  color: var(--text-primary);
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+  text-shadow: none;
+  animation: none;
+  border: none;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+}
+
+body[data-theme="professional"] .subtitle {
+  color: var(--secondary-color);
+  text-shadow: none;
+  font-family: 'Inter', sans-serif;
+}
+
+body[data-theme="professional"] .subtitle::after {
+  background: linear-gradient(to right, var(--primary-color), transparent);
+  box-shadow: none;
+}
+
+body[data-theme="professional"] .description {
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+body[data-theme="professional"] .description::before {
+  display: none;
+}
+
+body[data-theme="professional"] .description:hover {
+  background: #ffffff;
+  border-left-color: var(--accent-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact Info (if present) */
+body[data-theme="professional"] .contact-info {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme="professional"] .contact-info::before {
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05), transparent);
+}
+
+body[data-theme="professional"] .contact-info p {
+  color: var(--text-secondary);
+  text-shadow: none;
+}
+
+body[data-theme="professional"] .contact-info p:hover {
+  color: var(--primary-color);
+  text-shadow: none;
+}
+
+body[data-theme="professional"] .contact-info a {
+  color: var(--primary-color);
+}
+
+body[data-theme="professional"] .contact-info a:hover {
+  color: var(--accent-color);
+  text-shadow: none;
+}
+
+/* Resume Section */
+body[data-theme="professional"] .section-title {
+  color: var(--primary-color);
+  text-shadow: none;
+}
+
+body[data-theme="professional"] .btn-download,
+body[data-theme="professional"] .btn-view {
+  border: 1px solid var(--primary-color);
+  background: var(--bg-secondary);
+  color: var(--primary-color);
+  clip-path: none;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme="professional"] .btn-download:hover,
+body[data-theme="professional"] .btn-view:hover {
+  background: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+body[data-theme="professional"] .resume-viewer {
+  background: #ffffff;
+  border: 2px solid var(--border-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme="professional"] .resume-fallback {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+}
+
+body[data-theme="professional"] .resume-fallback p {
+  color: var(--text-primary);
+}
+
+body[data-theme="professional"] .resume-fallback a {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+body[data-theme="professional"] .resume-fallback a:hover {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
+  text-shadow: none;
+}
+
+/* Contact Page */
+body[data-theme="professional"] .contact-subtitle {
+  color: var(--secondary-color);
+}
+
+body[data-theme="professional"] .contact-card {
+  background: #ffffff;
+  border: 2px solid var(--border-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme="professional"] .contact-card:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+body[data-theme="professional"] .card-title {
+  color: var(--primary-color);
+  text-shadow: none;
+}
+
+body[data-theme="professional"] .contact-item {
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--primary-color);
+}
+
+body[data-theme="professional"] .contact-item:hover {
+  background: #ffffff;
+  border-left-color: var(--accent-color);
+}
+
+body[data-theme="professional"] .contact-text label {
+  color: var(--secondary-color);
+}
+
+body[data-theme="professional"] .contact-text a:hover {
+  color: var(--accent-color);
+  text-shadow: none;
+}
+
+body[data-theme="professional"] .quick-link {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  clip-path: none;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme="professional"] .quick-link:hover {
+  background: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+body[data-theme="professional"] .contact-footer {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+}
+
+body[data-theme="professional"] .availability-badge {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid #22c55e;
+  color: #16a34a;
+}
+
+body[data-theme="professional"] .status-indicator {
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+}
+
+body[data-theme="professional"] .footer-text {
+  color: var(--text-secondary);
+}
+
+/* Custom cursor - hide in professional theme */
+body[data-theme="professional"] .custom-cursor,
+body[data-theme="professional"] .cursor-glow {
+  display: none;
+}
+
+/* Scan line - hide in professional theme */
+body[data-theme="professional"] .scan-line {
+  display: none;
+}

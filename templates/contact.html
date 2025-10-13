@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="contact-container">
+  <div class="contact-header">
+    <h2 class="section-title">Contact Me</h2>
+    <p class="contact-subtitle">Let's connect and discuss opportunities</p>
+  </div>
+  
+  <div class="contact-grid">
+    <!-- Contact Information Card -->
+    <div class="contact-card">
+      <h3 class="card-title">Get In Touch</h3>
+      <div class="contact-details">
+        <div class="contact-item">
+          <span class="contact-icon">📧</span>
+          <div class="contact-text">
+            <label>Email</label>
+            <a href="mailto:mishrasugam11@gmail.com">mishrasugam11@gmail.com</a>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <span class="contact-icon">📱</span>
+          <div class="contact-text">
+            <label>Phone</label>
+            <a href="tel:+16055928649">+1-605-592-8649</a>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <span class="contact-icon">💼</span>
+          <div class="contact-text">
+            <label>LinkedIn</label>
+            <a href="https://www.linkedin.com/in/sugam-mishra-684b521b7/" target="_blank">linkedin.com/in/sugam-mishra</a>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <span class="contact-icon">💻</span>
+          <div class="contact-text">
+            <label>GitHub</label>
+            <a href="https://github.com/infinitysugam" target="_blank">github.com/infinitysugam</a>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <div class="contact-text">
+            <label>Location</label>
+            <span>Brookings, South Dakota</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Quick Links Card -->
+    <div class="contact-card">
+      <h3 class="card-title">Quick Links</h3>
+      <div class="quick-links">
+        <a href="{% url 'resume' %}" class="quick-link">
+          <span class="link-icon">📄</span>
+          <span>View Resume</span>
+        </a>
+        <a href="{% static 'pdf/Sugam_Mishra_Resume.pdf' %}" download class="quick-link">
+          <span class="link-icon">⬇</span>
+          <span>Download Resume</span>
+        </a>
+        <a href="https://www.linkedin.com/in/sugam-mishra-684b521b7/" target="_blank" class="quick-link">
+          <span class="link-icon">🔗</span>
+          <span>Connect on LinkedIn</span>
+        </a>
+        <a href="https://github.com/infinitysugam" target="_blank" class="quick-link">
+          <span class="link-icon">⭐</span>
+          <span>Follow on GitHub</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Additional Info -->
+  <div class="contact-footer">
+    <div class="availability-badge">
+      <span class="status-indicator"></span>
+      <span>Open to opportunities</span>
+    </div>
+    <p class="footer-text">
+      I'm currently pursuing my Master's in Computer Science and actively seeking opportunities in 
+      Data Engineering, AI/ML, and Big Data. Feel free to reach out for collaborations, job opportunities, 
+      or just to connect!
+    </p>
+  </div>
+</div>
+{% endblock %}

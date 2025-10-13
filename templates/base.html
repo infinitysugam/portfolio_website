@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sugam Mishra | Data & AI Engineer</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/theme-professional.css' %}">
+  <style>
+    /* Background image needs to be inline due to Django static tag */
+    .image-section {
+      background-image: url("{% static 'images/base_image_3.png' %}");
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Background Canvas -->
+  <canvas id="particleCanvas"></canvas>
+  
+  <!-- Scan Line Effect -->
+  <div class="scan-line"></div>
+  <div class="container">
+    <!-- Left Section - Background Image -->
+    <div class="image-section">
+      <nav style="position: absolute; left: 0; right: auto; width: auto;">
+        <a href="{% url 'home' %}" style="text-decoration: none;">
+          <div class="logo">Sugam Mishra</div>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Right Section - Content -->
+    <div class="content-section">
+      <nav style="position: absolute; left: auto; right: 0; width: auto;">
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'resume' %}">Resume</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#certificates">Certificates</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="main-content">
+        {% block content %}
+        <div class="greeting">Hello, I'm</div>
+        <h1 class="title">Sugam<br>Mishra</h1>
+        <div class="subtitle">Data & AI Engineer</div>
+        
+        <p class="description">
+          Data and AI Engineer with 3+ years of experience building scalable data pipelines and 
+          automating financial and marketing analytics workflows. Specialized in big data systems 
+          using Apache Spark, HDFS, and AWS.
+        </p>
+        
+        <p class="description">
+          Currently pursuing a Master's in Computer Science (GPA 4.0) at South Dakota State University, 
+          with research in Graph RAG and video comprehension. Previously led the redesign of legacy ETL 
+          pipelines processing 1 billion+ transactions, reducing processing time from 8 hours to 10 minutes.
+        </p>
+        
+        <p class="description">
+          Passionate about leveraging cutting-edge technologies to solve complex data challenges and 
+          building systems that transform manual workflows into automated, scalable solutions.
+        </p>
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static 'js/theme-switcher.js' %}"></script>
+  <script src="{% static 'js/particles.js' %}"></script>
+  <script src="{% static 'js/cursor-animation.js' %}"></script>
+</body>
+</html>
+
+
