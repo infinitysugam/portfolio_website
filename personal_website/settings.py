@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'graphrag',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Data files path for graphrag forecasting
+DATA_DIR = BASE_DIR / 'graphrag' / 'data'
+
+# OpenAI API Key (use environment variable in production)
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '')

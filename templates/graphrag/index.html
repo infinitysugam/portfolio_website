@@ -1,0 +1,146 @@
+{% extends 'graphrag/base.html' %}
+
+{% block title %}Home - Supply Chain Forecasting{% endblock %}
+
+{% block content %}
+<div class="w-full px-6">
+    <div class="max-w-6xl mx-auto">
+        <!-- Hero Section -->
+        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg shadow-2xl p-12 mb-8 text-white">
+            <h1 class="text-5xl font-bold mb-4">
+                <i class="fas fa-chart-line mr-3"></i>
+                Supply Chain Forecasting System
+            </h1>
+            <p class="text-xl mb-6 opacity-90">
+                Advanced ML & LLM-powered demand forecasting with Graph RAG integration
+            </p>
+            <a href="{% url 'graphrag:dashboard' %}" class="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-100 transition duration-200">
+                <i class="fas fa-rocket mr-2"></i>
+                Go to Dashboard
+            </a>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Feature 1 -->
+            <div class="bg-white rounded-lg shadow-lg p-6 graphrag-card-hover">
+                <div class="text-purple-600 text-4xl mb-4">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">ML Forecasting</h3>
+                <p class="text-gray-600">
+                    ARIMA-based time series forecasting for accurate demand prediction
+                </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="bg-white rounded-lg shadow-lg p-6 graphrag-card-hover">
+                <div class="text-purple-600 text-4xl mb-4">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">LLM Integration</h3>
+                <p class="text-gray-600">
+                    GPT-powered forecasting with natural language explanations
+                </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="bg-white rounded-lg shadow-lg p-6 graphrag-card-hover">
+                <div class="text-purple-600 text-4xl mb-4">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Graph RAG</h3>
+                <p class="text-gray-600">
+                    Knowledge graph-based retrieval for contextual insights
+                </p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="bg-white rounded-lg shadow-lg p-6 graphrag-card-hover">
+                <div class="text-purple-600 text-4xl mb-4">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Visualizations</h3>
+                <p class="text-gray-600">
+                    Interactive charts and graphs for data exploration
+                </p>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="bg-white rounded-lg shadow-lg p-6 graphrag-card-hover">
+                <div class="text-purple-600 text-4xl mb-4">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">AI Explanations</h3>
+                <p class="text-gray-600">
+                    Automated insights explaining forecast variations
+                </p>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="bg-white rounded-lg shadow-lg p-6 graphrag-card-hover">
+                <div class="text-purple-600 text-4xl mb-4">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Event Analysis</h3>
+                <p class="text-gray-600">
+                    Track how promotions and holidays impact demand
+                </p>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                <i class="fas fa-cogs text-purple-600 mr-2"></i>
+                How It Works
+            </h2>
+            <div class="space-y-4">
+                <div class="flex items-start">
+                    <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">1</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-1">Load Historical Data</h4>
+                        <p class="text-gray-600">System loads demand time series and event data for SKU123 in North region</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">2</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-1">Run ML & LLM Forecasts</h4>
+                        <p class="text-gray-600">ARIMA model and GPT generate independent 7-day forecasts</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">3</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-1">Generate Explanations</h4>
+                        <p class="text-gray-600">AI analyzes events and provides natural language explanations for each forecast day</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">4</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-1">Build Knowledge Graph</h4>
+                        <p class="text-gray-600">Create supply chain graph connecting suppliers, plants, SKUs, warehouses, and events</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">5</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-1">Visualize Results</h4>
+                        <p class="text-gray-600">Display interactive charts, graphs, and insights in a comprehensive dashboard</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center">
+            <a href="{% url 'graphrag:dashboard' %}" class="inline-block bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-4 px-10 rounded-lg shadow-lg hover:shadow-xl transition duration-200 text-lg">
+                <i class="fas fa-play-circle mr-2"></i>
+                Launch Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

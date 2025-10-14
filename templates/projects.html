@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="projects-container">
+  <div class="projects-header">
+    <h2 class="section-title">Projects</h2>
+    <p class="projects-subtitle">Showcasing innovative solutions in Data Engineering, AI/ML, and Big Data</p>
+  </div>
+  
+  <div class="projects-grid">
+    <!-- GraphRAG Project -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">📊</div>
+        <div class="project-badge">AI/ML</div>
+      </div>
+      <h3 class="project-title">Graph RAG Forecasting System</h3>
+      <p class="project-description">
+        Advanced forecasting system leveraging Graph Retrieval-Augmented Generation (RAG) for time-series analysis. 
+        Combines knowledge graphs with machine learning models to provide accurate predictions and insights.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Graph RAG</span>
+        <span class="tech-tag">ARIMA</span>
+        <span class="tech-tag">Django</span>
+      </div>
+      <div class="project-links">
+        <a href="{% url 'graphrag:dashboard' %}" class="project-link demo-link">
+          <span class="link-icon">🚀</span>
+          <span>View Demo</span>
+        </a>
+        <a href="https://github.com/infinitysugam" target="_blank" class="project-link github-link">
+          <span class="link-icon">💻</span>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ETL Pipeline Project -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">⚡</div>
+        <div class="project-badge">Data Engineering</div>
+      </div>
+      <h3 class="project-title">High-Performance ETL Pipeline</h3>
+      <p class="project-description">
+        Redesigned legacy ETL pipelines processing 1 billion+ transactions, reducing processing time from 8 hours to 10 minutes. 
+        Built with Apache Spark, HDFS, and AWS for scalable data processing.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">Apache Spark</span>
+        <span class="tech-tag">HDFS</span>
+        <span class="tech-tag">AWS</span>
+        <span class="tech-tag">Python</span>
+      </div>
+      <div class="project-links">
+        <a href="#" class="project-link demo-link disabled">
+          <span class="link-icon">🔒</span>
+          <span>Private Project</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Video Comprehension Project -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">🎥</div>
+        <div class="project-badge">Research</div>
+      </div>
+      <h3 class="project-title">Video Comprehension System</h3>
+      <p class="project-description">
+        Research project exploring advanced video understanding using deep learning and computer vision. 
+        Implements state-of-the-art models for video analysis and content extraction.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">PyTorch</span>
+        <span class="tech-tag">Computer Vision</span>
+        <span class="tech-tag">Deep Learning</span>
+        <span class="tech-tag">NLP</span>
+      </div>
+      <div class="project-links">
+        <a href="#" class="project-link demo-link">
+          <span class="link-icon">🚀</span>
+          <span>Coming Soon</span>
+        </a>
+        <a href="https://github.com/infinitysugam" target="_blank" class="project-link github-link">
+          <span class="link-icon">💻</span>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Add more projects as needed -->
+    <div class="project-card add-project">
+      <div class="add-project-content">
+        <div class="add-icon">➕</div>
+        <h3 class="add-title">More Projects Coming Soon</h3>
+        <p class="add-description">
+          Continuously working on innovative solutions in Data Engineering, AI/ML, and Big Data. 
+          Check back for updates!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

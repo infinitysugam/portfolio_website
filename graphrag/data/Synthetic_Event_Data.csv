@@ -1,0 +1,6 @@
+Event_ID,SKU,Region,Start_Date,End_Date,Event_Type,Description
+E001,SKU123,North,2024-01-15,2024-01-17,Promotion,Winter clearance sale
+E002,SKU123,North,2024-02-14,2024-02-14,Holiday,Valentine's Day demand boost
+E003,SKU123,North,2024-03-28,2024-03-30,Weather,Snowstorm disruption in North
+E004,SKU123,North,2024-04-01,2024-04-03,Promotion,Spring sale 20% discount
+E005,ALL,National,2024-04-05,2024-04-05,Holiday,Good Friday national holiday

@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views as personal_website_views
@@ -24,7 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', personal_website_views.base, name='home'),
     path('resume/', personal_website_views.resume, name='resume'),
+    path('projects/', personal_website_views.projects, name='projects'),
     path('contact/', personal_website_views.contact, name='contact'),
+    path('graphrag/', include('graphrag.urls')),
 ]
 
 # Serve static files in development
