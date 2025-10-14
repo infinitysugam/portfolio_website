@@ -6,47 +6,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sugam Mishra | Data & AI Engineer</title>
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  <link rel="stylesheet" href="{% static 'css/theme-professional.css' %}">
-  <style>
-    /* Background image needs to be inline due to Django static tag */
-    .image-section {
-      background-image: url("{% static 'images/base_image_3.png' %}");
-    }
-  </style>
 </head>
 <body>
-  <!-- Particle Background Canvas -->
-  <canvas id="particleCanvas"></canvas>
-  
-  <!-- Scan Line Effect -->
-  <div class="scan-line"></div>
   <div class="container">
-    <!-- Left Section - Background Image -->
-    <div class="image-section">
-      <nav style="position: absolute; left: 0; right: auto; width: auto;">
-        <a href="{% url 'home' %}" style="text-decoration: none;">
-          <div class="logo">Sugam Mishra</div>
-        </a>
-      </nav>
-    </div>
-
-    <!-- Right Section - Content -->
+    <!-- IDE-Style Content Section -->
     <div class="content-section">
-      <nav style="position: absolute; left: auto; right: 0; width: auto;">
+      <!-- Top Navigation Bar -->
+      <nav>
+        <a href="{% url 'home' %}" style="text-decoration: none;">
+          <div class="logo">sugam_mishra.dev</div>
+        </a>
         <ul>
-          <li><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="{% url 'resume' %}">Resume</a></li>
-          <li><a href="{% url 'projects' %}">Projects</a></li>
-          <li><a href="#certificates">Certificates</a></li>
-          <li><a href="{% url 'contact' %}">Contact</a></li>
+          <li><a href="{% url 'home' %}">home.js</a></li>
+          <li><a href="{% url 'resume' %}">resume.pdf</a></li>
+          <li><a href="{% url 'projects' %}">projects.tsx</a></li>
+          <li><a href="#certificates">certificates.json</a></li>
+          <li><a href="{% url 'contact' %}">contact.md</a></li>
         </ul>
       </nav>
 
+      <!-- Main Code Editor Content -->
       <div class="main-content">
         {% block content %}
-        <div class="greeting">Hello, I'm</div>
-        <h1 class="title">Sugam<br>Mishra</h1>
-        <div class="subtitle">Data & AI Engineer</div>
+        <!-- Profile Header with Headshot -->
+        <div class="profile-header">
+          <div class="headshot-container">
+            <img src="{% static 'images/professional_headshot.png' %}" alt="Sugam Mishra" class="headshot-image">
+          </div>
+          <div class="profile-content">
+            <div class="greeting">Hello, I'm</div>
+            <h1 class="title">SugamMishra</h1>
+            <div class="subtitle">Data & AI Engineer</div>
+          </div>
+        </div>
         
         <p class="description">
           Data and AI Engineer with 3+ years of experience building scalable data pipelines and 
@@ -64,14 +56,93 @@
           Passionate about leveraging cutting-edge technologies to solve complex data challenges and 
           building systems that transform manual workflows into automated, scalable solutions.
         </p>
+        
+        <!-- Skills Section -->
+        <div class="skills-section">
+          <h2 class="section-subtitle">Technical Expertise</h2>
+          <div class="skills-grid">
+            <div class="skill-category">
+              <h3 class="skill-category-title">Data Engineering</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">Apache Spark</span>
+                <span class="skill-tag">HDFS</span>
+                <span class="skill-tag">Kafka</span>
+                <span class="skill-tag">Airflow</span>
+                <span class="skill-tag">ETL Pipelines</span>
+              </div>
+            </div>
+            
+            <div class="skill-category">
+              <h3 class="skill-category-title">Cloud & Infrastructure</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">AWS</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">Kubernetes</span>
+                <span class="skill-tag">Terraform</span>
+              </div>
+            </div>
+            
+            <div class="skill-category">
+              <h3 class="skill-category-title">AI/ML</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">PyTorch</span>
+                <span class="skill-tag">TensorFlow</span>
+                <span class="skill-tag">Graph RAG</span>
+                <span class="skill-tag">NLP</span>
+                <span class="skill-tag">Computer Vision</span>
+              </div>
+            </div>
+            
+            <div class="skill-category">
+              <h3 class="skill-category-title">Programming</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">Scala</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Django</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Quick Stats -->
+        <div class="stats-section">
+          <div class="stat-card">
+            <div class="stat-value">3+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">1B+</div>
+            <div class="stat-label">Transactions Processed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">48x</div>
+            <div class="stat-label">Performance Improvement</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">4.0</div>
+            <div class="stat-label">GPA</div>
+          </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="cta-section">
+          <a href="{% url 'projects' %}" class="cta-button primary">
+            <span>View Projects</span>
+            <span class="cta-icon">→</span>
+          </a>
+          <a href="{% url 'contact' %}" class="cta-button secondary">
+            <span>Get in Touch</span>
+            <span class="cta-icon">✉</span>
+          </a>
+        </div>
+        
+        <div style="margin-top: 2rem; color: var(--text-secondary); margin-left: 0;">};</div>
         {% endblock %}
       </div>
     </div>
   </div>
-
-  <script src="{% static 'js/theme-switcher.js' %}"></script>
-  <script src="{% static 'js/particles.js' %}"></script>
-  <script src="{% static 'js/cursor-animation.js' %}"></script>
 </body>
 </html>
 
