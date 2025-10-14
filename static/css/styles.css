@@ -84,7 +84,7 @@ body {
 nav {
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
-  padding: 0.75rem 2rem;
+  padding: 1.25rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -96,7 +96,7 @@ nav {
 
 .logo {
   font-family: 'Fira Code', monospace;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: var(--green);
   display: flex;
@@ -108,22 +108,23 @@ nav {
   content: '>';
   color: var(--blue);
   font-weight: bold;
+  font-size: 1.5rem;
 }
 
 nav ul {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   align-items: center;
 }
 
 nav ul li a {
   color: var(--text-secondary);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 500;
   transition: all 0.2s ease;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.25rem;
   border-radius: 4px;
   position: relative;
 }
@@ -285,51 +286,137 @@ nav ul li a.active::before {
   color: var(--text-secondary);
 }
 
-.description {
-  color: var(--text-primary);
-  line-height: 1.8;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-  font-weight: 400;
+/* Experience & Education Grid */
+.experience-education-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.experience-column,
+.education-column {
   background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
   padding: 1.5rem;
-  padding-left: 1.5rem;
-  padding-top: 3rem;
-  border-left: 3px solid var(--blue);
+  display: flex;
+  flex-direction: column;
+}
+
+.column-title {
+  font-family: 'Fira Code', monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--yellow);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.column-title::before {
+  content: 'const ';
+  color: var(--purple);
+  font-size: 1.2rem;
+}
+
+.column-title::after {
+  content: ' = [';
+  color: var(--text-primary);
+}
+
+.scrollable-content {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.scrollable-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+  background: var(--bg-primary);
   border-radius: 4px;
-  transition: all 0.2s ease;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  border-radius: 4px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: var(--green);
+}
+
+.timeline-item {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.timeline-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.timeline-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.timeline-title {
+  font-family: 'Fira Code', monospace;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--blue);
+  margin: 0;
+}
+
+.timeline-company {
+  font-size: 1.1rem;
+  color: var(--green);
+  font-weight: 500;
+}
+
+.timeline-date {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.timeline-gpa {
+  font-size: 1rem;
+  color: var(--yellow);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.timeline-details {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.timeline-details li {
+  color: var(--text-primary);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
   position: relative;
 }
 
-.description::before {
-  content: 'experience: `';
+.timeline-details li::before {
+  content: '▹';
   position: absolute;
-  left: 1.5rem;
-  top: 1rem;
-  color: var(--text-secondary);
-  font-size: 1rem;
-  white-space: nowrap;
-  z-index: 1;
-  display: block;
-}
-
-.description:nth-of-type(2)::before {
-  content: 'education: `';
-}
-
-.description:nth-of-type(3)::before {
-  content: 'passion: `';
-}
-
-.description::after {
-  content: '`,';
-  color: var(--text-secondary);
-  margin-left: 0.25rem;
-}
-
-.description:hover {
-  background: var(--bg-tertiary);
-  border-left-color: var(--green);
+  left: 0;
+  color: var(--green);
+  font-size: 1.2rem;
 }
 
 /* Skills Section */
@@ -1131,18 +1218,21 @@ nav ul li a.active::before {
     height: 350px;
   }
   
-  .description {
-    padding: 1rem;
-    padding-left: 1rem;
-    padding-top: 2.5rem;
-    font-size: 0.9rem;
+  .experience-education-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   
-  .description::before {
-    position: absolute;
-    left: 1rem;
-    top: 0.75rem;
-    display: block;
+  .scrollable-content {
+    max-height: 400px;
+  }
+  
+  .timeline-title {
+    font-size: 1.1rem;
+  }
+  
+  .timeline-company {
+    font-size: 1rem;
   }
   
   .skills-grid {
@@ -1287,6 +1377,31 @@ nav ul li a.active::before {
   .headshot-image {
     width: 280px;
     height: 280px;
+  }
+  
+  .experience-education-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .column-title {
+    font-size: 1.4rem;
+  }
+  
+  .scrollable-content {
+    max-height: 350px;
+  }
+  
+  .timeline-title {
+    font-size: 1rem;
+  }
+  
+  .timeline-company {
+    font-size: 0.95rem;
+  }
+  
+  .timeline-details li {
+    font-size: 0.9rem;
   }
   
   .section-subtitle {
