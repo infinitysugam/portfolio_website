@@ -3,7 +3,7 @@
 {% block title %}Dashboard - Supply Chain Forecasting{% endblock %}
 
 {% block content %}
-<div class="w-full px-6">
+<div class="w-full">
     <div class="mb-6">
         <h1 class="text-4xl font-bold text-gray-900 mb-2">
             <i class="fas fa-dashboard text-purple-600"></i>
@@ -12,56 +12,71 @@
         <p class="text-gray-600">SKU123 - North Region</p>
     </div>
 
-    <!-- Run Forecast Button -->
+    <!-- Control Panel -->
     <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-        <div class="flex items-center justify-between">
-            <div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-2">
-                    <i class="fas fa-play-circle text-purple-600 mr-2"></i>
-                    Forecast Control
-                </h2>
-                <p class="text-gray-600">Click the button to run the forecast analysis</p>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            <i class="fas fa-cog text-purple-600 mr-2"></i>
+            Forecast Control Panel
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label class="text-sm font-semibold text-gray-700 mb-2">Data Options</label>
+                <button id="regenerateDataBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-200 flex items-center justify-center">
+                    <i class="fas fa-sync-alt mr-2"></i>
+                    Regenerate Demo Data
+                </button>
+                <p class="text-xs text-gray-500 mt-2">Generate new random historical data for testing</p>
             </div>
-            <button id="runForecastBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-200 flex items-center">
-                <i class="fas fa-play mr-2"></i>
-                Run Forecast
-            </button>
+            <div class="flex flex-col">
+                <label class="text-sm font-semibold text-gray-700 mb-2">Run Analysis</label>
+                <button id="runForecastBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-200 flex items-center justify-center">
+                    <i class="fas fa-play mr-2"></i>
+                    Run Forecast
+                </button>
+                <p class="text-xs text-gray-500 mt-2">Execute ML and LLM forecasting models</p>
+            </div>
         </div>
         <div id="loadingIndicator" class="hidden mt-4">
             <div class="flex items-center justify-center">
                 <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mr-3"></div>
-                <span class="text-gray-700">Running forecast analysis...</span>
+                <span class="text-gray-700" id="loadingText">Processing...</span>
             </div>
         </div>
     </div>
 
-    <!-- Results Container -->
-    <div id="resultsContainer" class="hidden">
-    <!-- Recent Data Section -->
+    <!-- Demo Data Display (Always Visible) -->
     <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
         <h2 class="text-2xl font-bold text-gray-900 mb-4">
             <i class="fas fa-database text-purple-600 mr-2"></i>
-            Recent Historical Data (Last 14 Days)
+            Current Historical Data (Last 14 Days)
         </h2>
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+            <table class="graphrag-table">
+                <thead>
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Demand</th>
+                        <th>Date</th>
+                        <th>Demand (Units)</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    {% for date, demand in recent_data.items %}
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ date }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ demand }} units</td>
-                    </tr>
-                    {% endfor %}
+                <tbody id="demoDataTable">
+                    <!-- Demo data will be populated here -->
                 </tbody>
             </table>
         </div>
     </div>
+
+    <!-- Forecast Results Section (Hidden Initially) -->
+    <div id="forecastResultsSection" class="hidden">
+        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg shadow-lg p-6 mb-6">
+            <h1 class="text-3xl font-bold text-white mb-2">
+                <i class="fas fa-chart-line mr-2"></i>
+                Forecast Results
+            </h1>
+            <p class="text-white opacity-90">Analysis completed successfully</p>
+        </div>
+
+    <!-- Results Container -->
+    <div id="resultsContainer">
 
     <!-- ML Forecast & LLM Explanations Side-by-Side -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
@@ -205,18 +220,100 @@
         </div>
     </div>
     </div> <!-- End Results Container -->
+    </div> <!-- End Forecast Results Section -->
 </div>
 
 <script>
-document.getElementById('runForecastBtn').addEventListener('click', function() {
+// Generate demo data on page load
+let currentDemoData = {};
+
+function generateDemoData() {
+    const demoData = {};
+    const today = new Date();
+    
+    for (let i = 13; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toISOString().split('T')[0];
+        // Generate random demand between 80 and 150
+        const demand = Math.floor(Math.random() * 70) + 80;
+        demoData[dateStr] = demand;
+    }
+    
+    return demoData;
+}
+
+function displayDemoData(data) {
+    const tableBody = document.getElementById('demoDataTable');
+    tableBody.innerHTML = '';
+    
+    for (const [date, demand] of Object.entries(data)) {
+        const row = `<tr>
+            <td>${date}</td>
+            <td>${demand} units</td>
+        </tr>`;
+        tableBody.innerHTML += row;
+    }
+    
+    currentDemoData = data;
+}
+
+// Initialize with demo data
+window.addEventListener('DOMContentLoaded', function() {
+    currentDemoData = generateDemoData();
+    displayDemoData(currentDemoData);
+});
+
+// Regenerate Data Button
+document.getElementById('regenerateDataBtn').addEventListener('click', function() {
     const btn = this;
     const loadingIndicator = document.getElementById('loadingIndicator');
-    const resultsContainer = document.getElementById('resultsContainer');
+    const loadingText = document.getElementById('loadingText');
     
     // Disable button and show loading
     btn.disabled = true;
     btn.classList.add('opacity-50', 'cursor-not-allowed');
     loadingIndicator.classList.remove('hidden');
+    loadingText.textContent = 'Generating new data...';
+    
+    // Simulate data generation delay
+    setTimeout(() => {
+        currentDemoData = generateDemoData();
+        displayDemoData(currentDemoData);
+        
+        loadingIndicator.classList.add('hidden');
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        
+        // Show success message briefly
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check mr-2"></i>Data Regenerated!';
+        btn.classList.remove('bg-purple-600');
+        btn.classList.add('bg-green-600');
+        
+        setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            btn.classList.remove('bg-green-600');
+            btn.classList.add('bg-purple-600');
+        }, 2000);
+    }, 1000);
+});
+
+// Run Forecast Button
+document.getElementById('runForecastBtn').addEventListener('click', function() {
+    const btn = this;
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const loadingText = document.getElementById('loadingText');
+    const forecastResultsSection = document.getElementById('forecastResultsSection');
+    
+    // Disable button and show loading
+    btn.disabled = true;
+    btn.classList.add('opacity-50', 'cursor-not-allowed');
+    loadingIndicator.classList.remove('hidden');
+    loadingText.textContent = 'Running forecast analysis...';
+    
+    // Hide forecast results section while loading
+    forecastResultsSection.classList.add('hidden');
     
     // Make AJAX request to run forecast
     fetch('{% url "graphrag:run_forecast" %}', {
@@ -224,28 +321,53 @@ document.getElementById('runForecastBtn').addEventListener('click', function() {
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': '{{ csrf_token }}'
-        }
+        },
+        body: JSON.stringify({
+            demo_data: currentDemoData
+        })
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log('Response status:', response.status);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
-        if (data.success) {
+        console.log('Received data:', data);
+        
+        // Check if data has the expected structure
+        if (data && (data.success || data.ml_forecast)) {
             // Populate results
             populateResults(data);
-            resultsContainer.classList.remove('hidden');
+            
+            // Show forecast results section
+            forecastResultsSection.classList.remove('hidden');
             loadingIndicator.classList.add('hidden');
+            
+            // Update button
             btn.innerHTML = '<i class="fas fa-check mr-2"></i>Forecast Complete';
-            btn.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+            btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
             btn.classList.add('bg-green-600');
+            
+            // Scroll to forecast results
+            setTimeout(() => {
+                forecastResultsSection.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }, 300);
         } else {
-            alert('Error running forecast: ' + data.error);
+            console.error('Invalid data structure:', data);
+            alert('Error: Invalid response from server. Check console for details.');
             loadingIndicator.classList.add('hidden');
             btn.disabled = false;
             btn.classList.remove('opacity-50', 'cursor-not-allowed');
         }
     })
     .catch(error => {
-        console.error('Error:', error);
-        alert('Error running forecast. Check console for details.');
+        console.error('Fetch error:', error);
+        alert('Error running forecast: ' + error.message + '. Check console for details.');
         loadingIndicator.classList.add('hidden');
         btn.disabled = false;
         btn.classList.remove('opacity-50', 'cursor-not-allowed');
@@ -253,15 +375,12 @@ document.getElementById('runForecastBtn').addEventListener('click', function() {
 });
 
 function populateResults(data) {
-    // Populate Recent Data
-    const recentDataBody = document.querySelector('#resultsContainer tbody');
-    recentDataBody.innerHTML = '';
-    for (const [date, demand] of Object.entries(data.recent_data)) {
-        const row = `<tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${date}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${demand} units</td>
-        </tr>`;
-        recentDataBody.innerHTML += row;
+    console.log('Populating results with data:', data);
+    
+    // Check if data has required fields
+    if (!data.ml_forecast || !data.llm_forecast) {
+        console.error('Missing required forecast data');
+        return;
     }
     
     // Populate ML Forecast (vertical layout for side-by-side comparison)

@@ -6,75 +6,391 @@
     <title>{% block title %}Supply Chain Forecasting - GraphRAG{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Scoped styles for graphrag app only */
-        .graphrag-container {
-            font-family: 'Inter', sans-serif;
+        :root {
+            --bg-primary: #1e1e1e;
+            --bg-secondary: #252526;
+            --bg-tertiary: #2d2d30;
+            --bg-hover: #37373d;
+            --text-primary: #d4d4d4;
+            --text-secondary: #858585;
+            --border-color: #3e3e42;
+            --blue: #569cd6;
+            --green: #4ec9b0;
+            --yellow: #dcdcaa;
+            --purple: #c586c0;
         }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
-        .graphrag-gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
         }
-        .graphrag-card-hover {
+        
+        .graphrag-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Navigation */
+        .graphrag-nav {
+            background: var(--bg-secondary);
+            border-bottom: 2px solid var(--border-color);
+            padding: 1.75rem 3.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .graphrag-logo {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .graphrag-logo i {
+            color: var(--blue);
+            font-size: 1.7rem;
+        }
+        
+        .graphrag-nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .graphrag-nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 0.85rem 1.5rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        
+        .graphrag-nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-hover);
+        }
+        
+        .graphrag-nav-link.active {
+            color: var(--blue);
+            background: var(--bg-tertiary);
+        }
+        
+        /* Main Content */
+        .graphrag-main {
+            flex: 1;
+            padding: 3rem;
+            width: 100%;
+        }
+        
+        /* Cards */
+        .graphrag-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
             transition: all 0.3s ease;
         }
-        .graphrag-card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        
+        .graphrag-card:hover {
+            border-color: var(--blue);
+            box-shadow: 0 8px 24px rgba(86, 156, 214, 0.2);
         }
-        .graphrag-loading-spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
+        
+        .graphrag-card-title {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .graphrag-card-title i {
+            color: var(--blue);
+        }
+        
+        /* Buttons */
+        .graphrag-btn {
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .graphrag-btn-primary {
+            background: var(--blue);
+            color: var(--bg-primary);
+        }
+        
+        .graphrag-btn-primary:hover {
+            background: var(--green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(78, 201, 176, 0.3);
+        }
+        
+        .graphrag-btn-success {
+            background: var(--green);
+            color: var(--bg-primary);
+        }
+        
+        /* Tables */
+        .graphrag-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .graphrag-table thead {
+            background: var(--bg-tertiary);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .graphrag-table th {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--blue);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .graphrag-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        
+        .graphrag-table tbody tr:hover {
+            background: var(--bg-hover);
+        }
+        
+        /* Override Tailwind colors for dark theme */
+        .text-gray-900 {
+            color: var(--text-primary) !important;
+        }
+        
+        .text-gray-600, .text-gray-700 {
+            color: var(--text-secondary) !important;
+        }
+        
+        .text-gray-500 {
+            color: var(--text-secondary) !important;
+        }
+        
+        .bg-white {
+            background-color: var(--bg-secondary) !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        
+        .bg-gray-50 {
+            background-color: var(--bg-tertiary) !important;
+        }
+        
+        .bg-gray-800 {
+            background-color: var(--bg-secondary) !important;
+        }
+        
+        .divide-gray-200 > * {
+            border-color: var(--border-color) !important;
+        }
+        
+        .border-gray-200 {
+            border-color: var(--border-color) !important;
+        }
+        
+        /* Gradient backgrounds - keep visible */
+        .bg-gradient-to-r {
+            color: var(--text-primary) !important;
+        }
+        
+        .from-purple-50, .to-indigo-50,
+        .from-green-50, .to-emerald-50,
+        .from-yellow-50, .to-amber-50,
+        .from-blue-50, .to-cyan-50 {
+            background: var(--bg-tertiary) !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        
+        .from-purple-600, .to-indigo-600 {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%) !important;
+        }
+        
+        .text-purple-600, .text-blue-600, .text-green-600, 
+        .text-red-600, .text-yellow-600 {
+            color: var(--blue) !important;
+        }
+        
+        .bg-purple-600 {
+            background-color: var(--blue) !important;
+        }
+        
+        .hover\:bg-purple-700:hover {
+            background-color: var(--green) !important;
+        }
+        
+        .bg-green-600 {
+            background-color: var(--green) !important;
+        }
+        
+        /* Card specific overrides */
+        .rounded-lg {
+            border-radius: 8px;
+        }
+        
+        .shadow-lg {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Text color overrides for specific elements */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-primary) !important;
+        }
+        
+        p {
+            color: var(--text-primary) !important;
+        }
+        
+        .text-white {
+            color: #ffffff !important;
+        }
+        
+        .text-sm, .text-xs {
+            color: var(--text-secondary) !important;
+        }
+        
+        /* Button text */
+        button {
+            color: var(--text-primary) !important;
+        }
+        
+        .bg-purple-600 button,
+        .bg-blue-600 button,
+        .bg-green-600 button {
+            color: #ffffff !important;
+        }
+        
+        /* Loading Spinner */
+        .graphrag-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem;
+        }
+        
+        .graphrag-spinner {
+            border: 3px solid var(--bg-tertiary);
+            border-top: 3px solid var(--blue);
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
         }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        /* Footer */
+        .graphrag-footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 3rem;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .graphrag-nav {
+                padding: 1.25rem 2rem;
+            }
+            .graphrag-main {
+                padding: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .graphrag-nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .graphrag-nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+            .graphrag-nav-link {
+                width: 100%;
+                text-align: center;
+            }
+            .graphrag-main {
+                padding: 1.5rem 1rem;
+            }
+        }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
-<body class="bg-gray-50">
+<body>
     <div class="graphrag-container">
         <!-- Navigation -->
-        <nav class="graphrag-gradient-bg shadow-lg">
-            <div class="w-full px-6">
-                <div class="flex justify-between h-16">
-                    <div class="flex items-center">
-                        <i class="fas fa-chart-line text-white text-2xl mr-3"></i>
-                        <span class="text-white text-xl font-bold">Supply Chain Forecasting</span>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <a href="{% url 'home' %}" class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium">
-                            <i class="fas fa-home mr-1"></i> Main Site
-                        </a>
-                        <a href="{% url 'graphrag:index' %}" class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium">
-                            <i class="fas fa-home mr-1"></i> Home
-                        </a>
-                        <a href="{% url 'graphrag:dashboard' %}" class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium">
-                            <i class="fas fa-dashboard mr-1"></i> Dashboard
-                        </a>
-                    </div>
-                </div>
+        <nav class="graphrag-nav">
+            <div class="graphrag-logo">
+                <i class="fas fa-project-diagram"></i>
+                <span>GraphRAG Forecasting</span>
             </div>
+            <ul class="graphrag-nav-links">
+                <li><a href="{% url 'graphrag:index' %}" class="graphrag-nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+                    <i class="fas fa-info-circle"></i> About
+                </a></li>
+                <li><a href="{% url 'graphrag:dashboard' %}" class="graphrag-nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a></li>
+                <li><a href="{% url 'home' %}" class="graphrag-nav-link">
+                    <i class="fas fa-arrow-left"></i> Back to Portfolio
+                </a></li>
+            </ul>
         </nav>
 
         <!-- Main Content -->
-        <main class="py-6">
+        <main class="graphrag-main">
             {% block content %}{% endblock %}
         </main>
 
         <!-- Footer -->
-        <footer class="bg-gray-800 text-white mt-8">
-            <div class="w-full px-6 py-4">
-                <div class="text-center">
-                    <p class="text-sm">&copy; 2025 Supply Chain Forecasting System. All rights reserved.</p>
-                </div>
-            </div>
+        <footer class="graphrag-footer">
+            <p>&copy; 2025 Sugam Mishra | Supply Chain Forecasting with GraphRAG</p>
         </footer>
     </div>
 

@@ -1,0 +1,272 @@
+{% extends 'stock_trading/base.html' %}
+
+{% block title %}Dashboard - RL Stock Trading{% endblock %}
+
+{% block content %}
+<div class="w-full">
+    <!-- Header -->
+    <div class="mb-6">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">
+            <i class="fas fa-chart-bar text-green-600"></i>
+            Trading Dashboard
+        </h1>
+        <p class="text-gray-600">Real-time performance metrics and portfolio analytics</p>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">Total Trades</h3>
+                <i class="fas fa-exchange-alt text-blue-600 text-2xl"></i>
+            </div>
+            <div class="text-3xl font-bold text-gray-900">{{ total_trades }}</div>
+            <p class="text-sm text-gray-600 mt-2">Executed since inception</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">Win Rate</h3>
+                <i class="fas fa-percentage text-green-600 text-2xl"></i>
+            </div>
+            <div class="text-3xl font-bold text-green-600">{{ win_rate }}%</div>
+            <p class="text-sm text-gray-600 mt-2">Profitable trades ratio</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">Total Return</h3>
+                <i class="fas fa-chart-line text-purple-600 text-2xl"></i>
+            </div>
+            <div class="text-3xl font-bold text-purple-600">+{{ total_return }}%</div>
+            <p class="text-sm text-gray-600 mt-2">Since platform launch</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">Sharpe Ratio</h3>
+                <i class="fas fa-balance-scale text-indigo-600 text-2xl"></i>
+            </div>
+            <div class="text-3xl font-bold text-indigo-600">{{ sharpe_ratio }}</div>
+            <p class="text-sm text-gray-600 mt-2">Risk-adjusted returns</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">Max Drawdown</h3>
+                <i class="fas fa-arrow-down text-red-600 text-2xl"></i>
+            </div>
+            <div class="text-3xl font-bold text-red-600">{{ max_drawdown }}%</div>
+            <p class="text-sm text-gray-600 mt-2">Largest peak-to-trough decline</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">Avg Trade Duration</h3>
+                <i class="fas fa-clock text-yellow-600 text-2xl"></i>
+            </div>
+            <div class="text-3xl font-bold text-yellow-600">{{ avg_trade_duration }}</div>
+            <p class="text-sm text-gray-600 mt-2">Average holding period</p>
+        </div>
+    </div>
+
+    <!-- Portfolio Performance Chart -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            <i class="fas fa-chart-area text-green-600 mr-2"></i>
+            Portfolio Performance
+        </h2>
+        <div class="bg-gray-100 rounded-lg p-8 text-center">
+            <i class="fas fa-chart-line text-gray-400 text-6xl mb-4"></i>
+            <p class="text-gray-600">Interactive equity curve visualization</p>
+            <p class="text-sm text-gray-500 mt-2">Shows portfolio value over time vs. benchmark</p>
+        </div>
+    </div>
+
+    <!-- RL Agent Performance -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-robot text-green-600 mr-2"></i>
+                RL Agent Metrics
+            </h2>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <span class="text-gray-700 font-medium">Training Episodes</span>
+                    <span class="text-gray-900 font-bold">10,000</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <span class="text-gray-700 font-medium">Epsilon (Exploration)</span>
+                    <span class="text-gray-900 font-bold">0.05</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <span class="text-gray-700 font-medium">Learning Rate</span>
+                    <span class="text-gray-900 font-bold">0.001</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <span class="text-gray-700 font-medium">Replay Buffer Size</span>
+                    <span class="text-gray-900 font-bold">50,000</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-700 font-medium">Network Architecture</span>
+                    <span class="text-gray-900 font-bold">128-64-32</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-wallet text-green-600 mr-2"></i>
+                Current Portfolio
+            </h2>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <span class="text-gray-700 font-medium">Cash Balance</span>
+                    <span class="text-gray-900 font-bold">$45,320</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <span class="text-gray-700 font-medium">Stock Holdings</span>
+                    <span class="text-gray-900 font-bold">$54,680</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <span class="text-gray-700 font-medium">Total Value</span>
+                    <span class="text-green-600 font-bold">$100,000</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <span class="text-gray-700 font-medium">Active Positions</span>
+                    <span class="text-gray-900 font-bold">5</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-700 font-medium">Unrealized P&L</span>
+                    <span class="text-green-600 font-bold">+$8,450</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Trades -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            <i class="fas fa-history text-green-600 mr-2"></i>
+            Recent Trades
+        </h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Symbol</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">P&L</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2025-10-14</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">AAPL</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">BUY</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">50</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$178.45</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">+$245</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2025-10-13</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">TSLA</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">SELL</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">25</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$245.80</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">+$1,250</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2025-10-12</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">MSFT</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">BUY</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">30</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$385.20</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-semibold">-$180</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2025-10-11</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">GOOGL</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">SELL</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$142.35</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">+$890</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2025-10-10</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">NVDA</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">BUY</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">15</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$475.60</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">+$2,340</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Technical Indicators -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            <i class="fas fa-chart-line text-green-600 mr-2"></i>
+            Technical Indicators Used
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="border border-gray-200 rounded-lg p-4">
+                <h4 class="font-bold text-gray-900 mb-2">RSI (Relative Strength Index)</h4>
+                <p class="text-sm text-gray-600">Measures momentum and overbought/oversold conditions</p>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-4">
+                <h4 class="font-bold text-gray-900 mb-2">MACD (Moving Average Convergence Divergence)</h4>
+                <p class="text-sm text-gray-600">Identifies trend direction and momentum</p>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-4">
+                <h4 class="font-bold text-gray-900 mb-2">Bollinger Bands</h4>
+                <p class="text-sm text-gray-600">Volatility indicator showing price boundaries</p>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-4">
+                <h4 class="font-bold text-gray-900 mb-2">Volume Analysis</h4>
+                <p class="text-sm text-gray-600">Trading volume patterns and anomalies</p>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-4">
+                <h4 class="font-bold text-gray-900 mb-2">Moving Averages (SMA/EMA)</h4>
+                <p class="text-sm text-gray-600">Trend identification and support/resistance</p>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-4">
+                <h4 class="font-bold text-gray-900 mb-2">ATR (Average True Range)</h4>
+                <p class="text-sm text-gray-600">Volatility measurement for position sizing</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Status -->
+    <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between">
+            <div>
+                <h3 class="text-xl font-bold mb-2">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    System Status: Active
+                </h3>
+                <p class="opacity-90">RL agent is running and monitoring markets in real-time</p>
+            </div>
+            <div class="text-right">
+                <div class="text-sm opacity-80 mb-1">Last Update</div>
+                <div class="text-lg font-bold">2 minutes ago</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
