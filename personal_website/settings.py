@@ -138,4 +138,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATA_DIR = BASE_DIR / 'graphrag' / 'data'
 
 # OpenAI API Key (use environment variable in production)
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
