@@ -28,6 +28,7 @@ urlpatterns = [
     path('contact/', personal_website_views.contact, name='contact'),
     path('graphrag/', include('graphrag.urls')),
     path('stock-trading/', include('stock_trading.urls')),
+    path('chatbot/', include('chatbot.urls')),
 ]
 
 # Serve static files in development

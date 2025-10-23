@@ -1,0 +1,86 @@
+SUGAM MISHRA - PROFESSIONAL PROFILE
+
+CONTACT INFORMATION:
+- Name: Sugam Mishra
+- Title: Data & AI Engineer
+- Website: sugammishra.com
+- Location: South Dakota, USA
+
+EDUCATION:
+
+Master of Science in Computer Science
+South Dakota State University | January 2024 - December 2025
+- GPA: 4.0/4.0
+- Focus: Artificial Intelligence, Machine Learning, Cryptocurrency
+- Research: Graph RAG, Video Comprehension, Knowledge Graphs
+- Relevant Coursework: Computer Vision, Deep Learning, Natural Language Processing, Software Engineering, Data Structures and Algorithms, Spatial Data Mining
+- Teaching Assistant: C/C++, Data Structures and Algorithms
+- Recognized for academic excellence and invited to join The Honor Society of Phi Kappa Phi, one of the nation's most prestigious honor societies
+
+Bachelor of Technology in Computer Science Engineering
+Kalinga Institute of Technology | 2017 - 2021
+- GPA: 8.9/10
+- Relevant Coursework: Data Structures, Algorithms, Database Systems, Operating Systems, Software Engineering
+- Capstone Project: Traffic Sign Recognition using Deep Learning
+- Attended a workshop on Ethical Hacking at IIT, India
+
+PROFESSIONAL EXPERIENCE:
+
+Big Data Engineer | Extensodata Pvt. Ltd. | May 2021 - August 2023
+- Led the design and implementation of a robust data architecture, building a centralized data lake and data warehouse for 9 distinct financial verticals, enabling seamless handling of large-scale transactional data and supporting cross-domain analytics and reporting
+- Redesigned the legacy daily ETL pipeline that processed 1 billion+ financial transactions, reducing processing time from 8 hours to 10 minutes by migrating to a Big Data architecture using HDFS for storage and Apache Spark for distributed processing
+- Built a scalable system to process transactional data from each bank branch and automated financial dashboards like the Balance Sheet and Profit & Loss Statement, replacing a manual Excel-based workflow that previously took 2–3 weeks and 5+ employees to complete, reducing reporting time to under 1 hour and significantly improving accuracy and efficiency
+- Tools: Apache Spark, Database, Apache Airflow, Hadoop
+
+Cloud Data Engineer | GrowByData Pvt. Ltd. | August 2023 - November 2023
+- Designed and implemented a data warehouse solution to store and manage marketing data across 100+ client accounts, and automated reporting dashboards that replaced manual Excel-based workflows, reducing reporting time from 2 days to under 15 minutes and improving accuracy and scalability for marketing analytics
+- Developed automated data extraction scripts for 10+ advertisement platforms for 100+ clients and syncing hundreds of marketing campaigns daily, enabling near real-time performance insights and reducing manual integration effort by over 90%
+- Tools: AWS, Distributed Processing, API, Python
+
+Student Programmer | South Dakota State University | May 2024 - August 2024
+- Developed interactive websites using C# and the .NET framework, showcasing proficiency in front-end and back-end development for college websites
+- Created a range of console applications and interactive forms to support various functionalities, enhancing user experience and application usability
+- Tools: .NET, C#, API
+
+Graduate Teaching Assistant | South Dakota State University | January 2024 - December 2025
+- Guided and mentored 60+ undergraduate students in C and C++ programming, helping improve lab assignment quality and conceptual understanding
+- Assisted with grading and held weekly office hours to support student success
+
+TECHNICAL SKILLS:
+
+Programming Languages:
+- Python, Scala, SQL, Bash, C/C++/C#
+
+Big Data & Processing:
+- Apache Spark, Apache Kafka, Hadoop, Airflow, ETL
+
+Databases:
+- MySQL, MongoDB, Neo4j, Database Modeling
+
+Cloud & Tools:
+- AWS, API Integration, Automation
+
+Machine Learning & AI:
+- Machine Learning, Artificial Intelligence, Knowledge Graph, RAG, Graph RAG, VLM's & LLM's Inference
+
+KEY ACHIEVEMENTS:
+- Processed 1 billion+ financial transactions daily
+- Achieved 48x performance improvement (8 hours to 10 minutes)
+- Reduced reporting time from 2-3 weeks to under 1 hour
+- Automated workflows for 100+ client accounts
+- Maintained perfect 4.0 GPA in Master's program
+- Member of Phi Kappa Phi Honor Society
+
+RESEARCH INTERESTS:
+- Graph RAG (Retrieval-Augmented Generation)
+- Video Comprehension
+- Knowledge Graphs
+- Computer Vision
+- Natural Language Processing
+- Deep Learning
+
+CURRENT STATUS:
+- Actively seeking full-time opportunities in Data Engineering, AI/ML Engineering, or related fields
+- Available for graduation: December 2025
+- Open to relocation
+- Authorized to work in the United States

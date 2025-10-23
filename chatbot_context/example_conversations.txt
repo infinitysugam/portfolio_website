@@ -1,0 +1,11 @@
+EXAMPLE CHATBOT CONVERSATIONS
+==============================
+
+These are example conversations that demonstrate how the chatbot responds to common recruiter questions.
+
+---
+
+CONVERSATION 1: General Experience
+-----------------------------------
+
+User: Tell me about Sugam's work experience
