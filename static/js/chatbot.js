@@ -7,6 +7,8 @@ class Chatbot {
     this.mediaRecorder = null;
     this.audioChunks = [];
     this.recognition = null;
+    this.isVoiceMode = false;
+    this.isSpeaking = false;
     
     this.init();
   }
@@ -37,8 +39,26 @@ class Chatbot {
             <div class="chatbot-avatar">🤖</div>
             <div class="chatbot-header-info">
               <h3 class="chatbot-header-title">Sugam's AI Assistant</h3>
-              <p class="chatbot-header-subtitle">Ask me about Sugam's experience</p>
+              <p class="chatbot-header-subtitle" id="chatbot-mode-subtitle">Chat Mode</p>
             </div>
+          </div>
+          
+          <div class="chatbot-mode-selector">
+            <button class="mode-option active" id="mode-chat" data-mode="chat">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span>Chat Mode</span>
+            </button>
+            <button class="mode-option" id="mode-voice" data-mode="voice">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+              <span>Voice Mode</span>
+            </button>
           </div>
           
           <div class="chatbot-messages" id="chatbot-messages">
@@ -66,7 +86,7 @@ class Chatbot {
             </div>
           </div>
           
-          <div class="chatbot-input-container">
+          <div class="chatbot-input-container" id="chatbot-input-container">
             <button class="chatbot-voice-btn" id="chatbot-voice-btn" aria-label="Voice input" title="Click to speak">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
@@ -89,7 +109,23 @@ class Chatbot {
                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
               </svg>
             </button>
+            <button class="chatbot-ptt-btn" id="chatbot-ptt-btn" aria-label="Push to talk" title="Hold to speak">
+              <div class="ptt-ripple"></div>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+              <span class="ptt-text">Hold to Speak</span>
+            </button>
           </div>
+          <button class="chatbot-stop-speaking" id="chatbot-stop-speaking" aria-label="Stop voice response">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="6" width="12" height="12"></rect>
+            </svg>
+            <span>Stop Voice</span>
+          </button>
         </div>
       </div>
     `;
@@ -102,6 +138,10 @@ class Chatbot {
     const sendBtn = document.getElementById('chatbot-send-btn');
     const input = document.getElementById('chatbot-input');
     const voiceBtn = document.getElementById('chatbot-voice-btn');
+    const modeChatBtn = document.getElementById('mode-chat');
+    const modeVoiceBtn = document.getElementById('mode-voice');
+    const pttBtn = document.getElementById('chatbot-ptt-btn');
+    const stopSpeakingBtn = document.getElementById('chatbot-stop-speaking');
     
     toggle.addEventListener('click', () => this.toggleChatbot());
     sendBtn.addEventListener('click', () => this.sendMessage());
@@ -120,6 +160,43 @@ class Chatbot {
     
     // Voice button
     voiceBtn.addEventListener('click', () => this.toggleVoiceInput());
+    
+    // Mode selector buttons
+    modeChatBtn.addEventListener('click', () => this.setMode('chat'));
+    modeVoiceBtn.addEventListener('click', () => this.setMode('voice'));
+    
+    // Stop speaking button
+    stopSpeakingBtn.addEventListener('click', () => this.stopSpeaking());
+    
+    // Push-to-talk button (mouse events)
+    pttBtn.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      this.startPushToTalk();
+    });
+    pttBtn.addEventListener('mouseup', (e) => {
+      e.preventDefault();
+      this.stopPushToTalk();
+    });
+    pttBtn.addEventListener('mouseleave', (e) => {
+      if (this.isRecording) {
+        this.stopPushToTalk();
+      }
+    });
+    
+    // Push-to-talk button (touch events for mobile)
+    pttBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      this.startPushToTalk();
+    });
+    pttBtn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      this.stopPushToTalk();
+    });
+    pttBtn.addEventListener('touchcancel', (e) => {
+      if (this.isRecording) {
+        this.stopPushToTalk();
+      }
+    });
     
     // Suggestion buttons
     document.addEventListener('click', (e) => {
@@ -151,17 +228,30 @@ class Chatbot {
       
       this.recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
-        document.getElementById('chatbot-input').value = transcript;
-        this.sendMessage();
+        const input = document.getElementById('chatbot-input');
+        input.value = transcript;
+        
+        // Auto-send in voice mode, otherwise just populate input
+        if (this.isVoiceMode) {
+          this.sendMessage();
+        }
       };
       
       this.recognition.onerror = (event) => {
         console.error('Speech recognition error:', event.error);
         this.stopRecording();
+        const pttBtn = document.getElementById('chatbot-ptt-btn');
+        if (pttBtn) {
+          pttBtn.classList.remove('active');
+        }
       };
       
       this.recognition.onend = () => {
         this.stopRecording();
+        const pttBtn = document.getElementById('chatbot-ptt-btn');
+        if (pttBtn) {
+          pttBtn.classList.remove('active');
+        }
       };
     }
   }
@@ -179,6 +269,51 @@ class Chatbot {
     } else {
       window.classList.remove('active');
       toggle.classList.remove('active');
+    }
+  }
+  
+  setMode(mode) {
+    this.isVoiceMode = mode === 'voice';
+    const modeChatBtn = document.getElementById('mode-chat');
+    const modeVoiceBtn = document.getElementById('mode-voice');
+    const subtitle = document.getElementById('chatbot-mode-subtitle');
+    const inputContainer = document.getElementById('chatbot-input-container');
+    
+    if (this.isVoiceMode) {
+      modeChatBtn.classList.remove('active');
+      modeVoiceBtn.classList.add('active');
+      subtitle.textContent = 'Voice Mode - Hold to speak';
+      inputContainer.classList.add('voice-mode');
+    } else {
+      modeChatBtn.classList.add('active');
+      modeVoiceBtn.classList.remove('active');
+      subtitle.textContent = 'Chat Mode';
+      inputContainer.classList.remove('voice-mode');
+    }
+  }
+  
+  startPushToTalk() {
+    if (!this.recognition) {
+      this.showError('Voice input is not supported in your browser');
+      return;
+    }
+    
+    try {
+      this.recognition.start();
+      this.isRecording = true;
+      const pttBtn = document.getElementById('chatbot-ptt-btn');
+      pttBtn.classList.add('active');
+    } catch (error) {
+      console.error('Error starting push-to-talk:', error);
+    }
+  }
+  
+  stopPushToTalk() {
+    if (this.recognition && this.isRecording) {
+      this.recognition.stop();
+      this.isRecording = false;
+      const pttBtn = document.getElementById('chatbot-ptt-btn');
+      pttBtn.classList.remove('active');
     }
   }
   
@@ -264,6 +399,15 @@ class Chatbot {
           { role: 'user', content: message },
           { role: 'assistant', content: data.response }
         );
+        
+        // Auto-speak in voice mode
+        if (this.isVoiceMode) {
+          // Extract text from markdown for speaking
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = marked.parse(data.response);
+          const textToSpeak = tempDiv.textContent || tempDiv.innerText;
+          this.speakText(textToSpeak);
+        }
       } else {
         this.showError(data.error || 'An error occurred');
       }
@@ -354,9 +498,42 @@ class Chatbot {
       utterance.pitch = 1;
       utterance.volume = 1;
       
+      // Show stop button
+      this.isSpeaking = true;
+      const stopBtn = document.getElementById('chatbot-stop-speaking');
+      if (stopBtn) {
+        stopBtn.classList.add('visible');
+      }
+      
+      // Hide stop button when speech ends
+      utterance.onend = () => {
+        this.isSpeaking = false;
+        if (stopBtn) {
+          stopBtn.classList.remove('visible');
+        }
+      };
+      
+      utterance.onerror = () => {
+        this.isSpeaking = false;
+        if (stopBtn) {
+          stopBtn.classList.remove('visible');
+        }
+      };
+      
       window.speechSynthesis.speak(utterance);
     } else {
       this.showError('Text-to-speech is not supported in your browser');
+    }
+  }
+  
+  stopSpeaking() {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      this.isSpeaking = false;
+      const stopBtn = document.getElementById('chatbot-stop-speaking');
+      if (stopBtn) {
+        stopBtn.classList.remove('visible');
+      }
     }
   }
   
