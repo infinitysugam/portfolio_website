@@ -11,3 +11,6 @@ def contact(request):
 
 def projects(request):
     return render(request, 'projects.html')
+
+def chatbot_demo(request):
+    return render(request, 'chatbot_demo.html')

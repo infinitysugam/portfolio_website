@@ -26,6 +26,7 @@ urlpatterns = [
     path('resume/', personal_website_views.resume, name='resume'),
     path('projects/', personal_website_views.projects, name='projects'),
     path('contact/', personal_website_views.contact, name='contact'),
+    path('chatbot-demo/', personal_website_views.chatbot_demo, name='chatbot_demo'),
     path('graphrag/', include('graphrag.urls')),
     path('stock-trading/', include('stock_trading.urls')),
     path('chatbot/', include('chatbot.urls')),
