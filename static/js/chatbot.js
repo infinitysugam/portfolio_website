@@ -20,11 +20,16 @@ class Chatbot {
   createChatbotUI() {
     const chatbotHTML = `
       <div class="chatbot-container">
+        <div class="chatbot-popup" id="chatbot-popup">
+          <div class="chatbot-popup-content">
+            <span class="chatbot-popup-emoji">👋</span>
+            <span class="chatbot-popup-text">Talk to AI Agent</span>
+          </div>
+          <div class="chatbot-popup-arrow"></div>
+        </div>
         <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Toggle chatbot">
           <div class="chatbot-pulse"></div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-          </svg>
+          <div class="chatbot-robot-icon">🤖</div>
         </button>
         
         <div class="chatbot-window" id="chatbot-window">
@@ -165,10 +170,12 @@ class Chatbot {
     this.isOpen = !this.isOpen;
     const window = document.getElementById('chatbot-window');
     const toggle = document.getElementById('chatbot-toggle');
+    const popup = document.getElementById('chatbot-popup');
     
     if (this.isOpen) {
       window.classList.add('active');
       toggle.classList.add('active');
+      popup.classList.add('hidden');
     } else {
       window.classList.remove('active');
       toggle.classList.remove('active');
@@ -270,13 +277,18 @@ class Chatbot {
   addMessage(content, role) {
     const messagesContainer = document.getElementById('chatbot-messages');
     
+    // Render markdown for assistant messages, escape HTML for user messages
+    const renderedContent = role === 'assistant' 
+      ? marked.parse(content)
+      : this.escapeHtml(content);
+    
     const messageHTML = `
       <div class="chatbot-message ${role}">
         <div class="chatbot-message-avatar">
           ${role === 'assistant' ? '🤖' : '👤'}
         </div>
         <div>
-          <div class="chatbot-message-content">${this.escapeHtml(content)}</div>
+          <div class="chatbot-message-content">${renderedContent}</div>
           ${role === 'assistant' ? `
             <div class="chatbot-message-actions">
               <button class="chatbot-message-action" data-action="speak" title="Read aloud">

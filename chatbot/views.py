@@ -77,7 +77,7 @@ def chat(request):
             model="gpt-4o-mini",
             messages=messages,
             temperature=0.7,
-            max_tokens=500
+            max_tokens=2048
         )
         
         assistant_message = response.choices[0].message.content
